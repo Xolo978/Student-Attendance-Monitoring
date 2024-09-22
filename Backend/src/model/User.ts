@@ -13,7 +13,7 @@ export interface IUser extends Document {
 }
 
 const userSchema: Schema<IUser> = new Schema({
-    username: { type: String, required: false, unique: true },
+    username: { type: String, required: false, unique: false },
     userId: { type: String, required: true, unique: true }, // Add userId
     password: { type: String, required: true },
     attendanceCount: { type: Number, default: 0 }, // Total attendance count
