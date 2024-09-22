@@ -1,0 +1,7 @@
+{
+    "whitelistedSites": [
+        "https://www.mathworks.com",
+        "https://www.mathworks.com/login",
+        "https://www.mathworks.com/products/matlab.html"
+    ]
+}

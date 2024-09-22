@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management</title>
+    <link rel="stylesheet" href="../styles/attendance.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="admin.html">Home</a></li>
+            <li><a href="attendance.html">Attendance</a></li>
+            <li><a href="session-settings.html">Session Settings</a></li>
+        </ul>
+    </nav>
+
+    <h1>Attendance Records</h1>
+    
+    <div id="attendance-records">
+        <table id="attendance-table">
+            <thead>
+                <tr>
+                    <th>UserId</th>
+                    <th>Attendance</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-list"></tbody>
+        </table>
+    </div>
+
+    <script src="../scripts/attendance.js"></script>
+</body>
+</html>
