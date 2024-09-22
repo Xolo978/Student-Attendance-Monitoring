@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const Violation_js_1 = require("./Violation.js");
 const userSchema = new mongoose_1.Schema({
-    username: { type: String, required: false, unique: true },
+    username: { type: String, required: false, unique: false },
     userId: { type: String, required: true, unique: true }, // Add userId
     password: { type: String, required: true },
     attendanceCount: { type: Number, default: 0 }, // Total attendance count
