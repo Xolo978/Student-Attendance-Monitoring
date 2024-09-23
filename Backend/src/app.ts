@@ -5,11 +5,12 @@ import sessionRoutes from './route/sessionRoutes.js';
 import attendanceRoutes from './route/attendanceRoutes.js';
 import userWebsocket from './websocket/userWebsocket.js';
 import userRoutes from './route/userRoutes.js';
-import cors from '@fastify/cors'
-import config from "./config/config.json"
+import cors from '@fastify/cors';
+import config from "./config/config.json";
+
 const app = fastify();
-const mongodbUri = config.mongoDbURI
-const port = config.port
+const mongodbUri = config.mongoDbURI;
+const port = config.port;
 
 mongoose.connect(mongodbUri)
     .then(() => {
@@ -19,21 +20,20 @@ mongoose.connect(mongodbUri)
         console.error('MongoDB connection error:', err);
     });
 
-
 const startServer = async () => {
-    await app.register(cors)
+    await app.register(cors);
     await app.register(attendanceRoutes);
     await app.register(adminRoutes);
     await app.register(sessionRoutes);
-    await app.register(userRoutes)
+    await app.register(userRoutes);
     await app.register(userWebsocket); 
 
-    app.listen({ port: port }, (err) => {
+    app.listen({ port: port, host: '0.0.0.0' }, (err, address) => {
         if (err) {
             console.error(err);
             process.exit(1);
         }
-        console.log(`Server listening on http://localhost:${port}`);
+        console.log(`Server listening at ${address}`);
     });
 };
 

@@ -29,12 +29,12 @@ const startServer = async () => {
     await app.register(sessionRoutes_js_1.default);
     await app.register(userRoutes_js_1.default);
     await app.register(userWebsocket_js_1.default);
-    app.listen({ port: port }, (err) => {
+    app.listen({ port: port, host: '0.0.0.0' }, (err, address) => {
         if (err) {
             console.error(err);
             process.exit(1);
         }
-        console.log(`Server listening on http://localhost:${port}`);
+        console.log(`Server listening at ${address}`);
     });
 };
 startServer().catch(err => {
