@@ -29,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const xlsx = __importStar(require("xlsx"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const User_js_1 = __importDefault(require("./model/User.js")); // Ensure the path is correct
-mongoose_1.default.connect('mongodb://localhost:27017/main')
+mongoose_1.default.connect('mongodb+srv://xolo:xolo123@student-attendance.ftr2u.mongodb.net/?retryWrites=true&w=majority&appName=Student-Attendance/main')
     .then(() => {
     console.log("MongoDB connected");
 })

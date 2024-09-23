@@ -2,7 +2,7 @@ import * as xlsx from 'xlsx';
 import mongoose from 'mongoose';
 import User from './model/User.js'; // Ensure the path is correct
 
-mongoose.connect('mongodb://localhost:27017/main')
+mongoose.connect('mongodb+srv://xolo:xolo123@student-attendance.ftr2u.mongodb.net/?retryWrites=true&w=majority&appName=Student-Attendance/main')
     .then(() => {
         console.log("MongoDB connected");
     })
