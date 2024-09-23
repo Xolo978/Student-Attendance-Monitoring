@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Settings</title>
+  <link rel="stylesheet" crossorigin href="/assets/sessionSettings-Btm2TaTA.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="admin.html">Home</a></li>
+            <li><a href="attendance.html">Attendance</a></li>
+            <li><a href="session-settings.html">Session Settings</a></li>
+        </ul>
+    </nav>
+
+    <h1>Session Settings</h1>
+    
+    <div id="session-settings">
+        <label for="session-date">Session Date:</label>
+        <input type="date" id="session-date" required>
+        <label for="start-time">Start Time:</label>
+        <input type="time" id="start-time" required>
+        <label for="end-time">End Time:</label>
+        <input type="time" id="end-time" required>
+        <button onclick="saveSessionSettings()">Save</button>
+    </div>
+
+    <script src="../scripts/session-settings.js"></script>
+</body>
+</html>
