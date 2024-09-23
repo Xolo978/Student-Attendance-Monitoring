@@ -1,4 +1,4 @@
 {
     "mongoDbURI": "mongodb+srv://xolo:xolo123@student-attendance.ftr2u.mongodb.net/?retryWrites=true&w=majority&appName=Student-Attendance/main",
-    "port": 9087
+    "port": 8080
 }
