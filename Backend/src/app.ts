@@ -7,7 +7,7 @@ import userWebsocket from './websocket/userWebsocket.js';
 import userRoutes from './route/userRoutes.js';
 import cors from '@fastify/cors';
 import config from "./config/config.json";
-
+import dummyRoutes from './route/dummyRoutes.js';
 const app = fastify();
 const mongodbUri = config.mongoDbURI;
 const port = config.port;
@@ -26,8 +26,8 @@ const startServer = async () => {
     await app.register(adminRoutes);
     await app.register(sessionRoutes);
     await app.register(userRoutes);
+    await app.register(dummyRoutes);
     await app.register(userWebsocket); 
-
     app.listen({ port: port, host: '0.0.0.0' }, (err, address) => {
         if (err) {
             console.error(err);
