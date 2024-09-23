@@ -1,6 +1,4 @@
 const link = "http://localhost:9087"
-window.config = config
-console.log(window.config)
 async function adminLogin() {
     const username = document.getElementById('admin-username').value;
     const password = document.getElementById('admin-password').value;
