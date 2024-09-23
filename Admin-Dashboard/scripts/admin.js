@@ -1,6 +1,6 @@
-const link = "http://localhost:9087"
+const link = "https://student-attendance-monitoring.onrender.com"
 async function loadCurrentSessions() {
-    const response = await fetch('http://localhost:9087/session-settings');
+    const response = await fetch('https://student-attendance-monitoring.onrender.com/session-settings');
     const sessions = await response.json();
 
 
@@ -51,7 +51,7 @@ async function deleteSession(sessionId) {
     if (!confirmed) return;
 
     try {
-        const response = await fetch(`http://localhost:9087/session-settings/${sessionId}`, {
+        const response = await fetch(`https://student-attendance-monitoring.onrender.com/session-settings/${sessionId}`, {
             method: 'DELETE',
         });
 

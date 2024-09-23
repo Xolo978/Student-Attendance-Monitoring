@@ -1,4 +1,4 @@
-const link = "http://localhost:9087"
+const link = "https://student-attendance-monitoring.onrender.com"
 async function adminLogin() {
     const username = document.getElementById('admin-username').value;
     const password = document.getElementById('admin-password').value;

@@ -1,6 +1,6 @@
-const link = "http://localhost:9087"
+const link = "https://student-attendance-monitoring.onrender.com"
 async function loadAttendanceData() {
-    const attendanceResponse = await fetch('http://localhost:9087/attendance');
+    const attendanceResponse = await fetch('https://student-attendance-monitoring.onrender.com/attendance');
     const attendanceData = await attendanceResponse.json();
     const attendanceList = document.getElementById('attendance-list');
 
@@ -21,7 +21,7 @@ async function loadAttendanceData() {
 }
 
 async function updateAttendance(userId, increment) {
-    const response = await fetch(`http://localhost:9087/attendance/increment-decrement/${userId}`, {
+    const response = await fetch(`https://student-attendance-monitoring.onrender.com/attendance/increment-decrement/${userId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

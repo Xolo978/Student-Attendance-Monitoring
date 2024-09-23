@@ -1,4 +1,4 @@
-const link = "http://localhost:9087"
+const link = "https://student-attendance-monitoring.onrender.com"
 async function saveSessionSettings() {
     const sessionDate = document.getElementById('session-date').value;
     const startTime = document.getElementById('start-time').value;
@@ -10,7 +10,7 @@ async function saveSessionSettings() {
     }
     
     const sessionId = Math.random().toString(36).substring(2, 20);
-    await fetch('http://localhost:9087/save-session-settings', {
+    await fetch('https://student-attendance-monitoring.onrender.com/save-session-settings', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

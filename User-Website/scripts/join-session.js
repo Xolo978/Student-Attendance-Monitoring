@@ -91,7 +91,7 @@ async function decrementAttendance() {
     const userId = localStorage.getItem("userId")
 
     try {
-        const response = await fetch(`http://localhost:9087/attendance/increment-decrement/${userId}`, {
+        const response = await fetch(`https://student-attendance-monitoring.onrender.com/attendance/increment-decrement/${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

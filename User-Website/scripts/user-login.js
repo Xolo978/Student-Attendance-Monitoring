@@ -5,7 +5,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:9087/user-login', {
+        const response = await fetch('https://student-attendance-monitoring.onrender.com/user-login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
