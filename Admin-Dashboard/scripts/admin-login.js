@@ -1,8 +1,11 @@
+const link = "http://localhost:9087"
+window.config = config
+console.log(window.config)
 async function adminLogin() {
     const username = document.getElementById('admin-username').value;
     const password = document.getElementById('admin-password').value;
 
-    const response = await fetch('http://localhost:9087/admin-login', {
+    const response = await fetch(`${link}/admin-login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

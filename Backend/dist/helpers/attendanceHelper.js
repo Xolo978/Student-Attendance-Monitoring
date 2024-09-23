@@ -6,10 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.incrementOrDecrementAttendance = exports.updateAttendance = exports.getAttendanceRecords = void 0;
 const Attendance_js_1 = __importDefault(require("../model/Attendance.js"));
 const User_js_1 = __importDefault(require("../model/User.js"));
-// Fetch attendance records from User schema
 const getAttendanceRecords = async () => {
     try {
-        // Find all users and select relevant fields: userId, attendanceCount, etc.
         const users = await User_js_1.default.find({}, { userId: 1, userName: 1, attendanceCount: 1 }).lean();
         return users; // Return the list of users with their attendance count
     }
@@ -64,7 +62,6 @@ const incrementOrDecrementAttendance = async (userId, increment) => {
     if (!user) {
         throw new Error('User not found');
     }
-    // Increment or decrement attendance count based on 'increment' flag
     if (increment) {
         user.attendanceCount += 1;
     }

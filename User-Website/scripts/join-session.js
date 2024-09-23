@@ -20,8 +20,6 @@ if (isNaN(sessionStartTime) || isNaN(sessionEndTime)) {
     window.location.href = 'dashboard.html'; 
 }
 
-console.log({ sessionStartTime, sessionEndTime });
-
 document.addEventListener('DOMContentLoaded', () => {
     enterFullScreen();
     setInterval(updateTimeRemaining, 1000);
@@ -32,10 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function enterFullScreen() {
     if (document.documentElement.requestFullscreen) {
+        
         document.documentElement.requestFullscreen();
+        
     } else if (document.documentElement.mozRequestFullScreen) { 
+        
         document.documentElement.mozRequestFullScreen();
     } else if (document.documentElement.webkitRequestFullscreen) { 
+    
         document.documentElement.webkitRequestFullscreen();
     } else if (document.documentElement.msRequestFullscreen) { 
         document.documentElement.msRequestFullscreen();
@@ -63,7 +65,7 @@ function formatTime(seconds) {
     return `${hours}h ${minutes}m ${secs}s`;
 }
 
-function handleVisibilityChange() {
+async function handleVisibilityChange() {
     if (document.visibilityState === 'hidden') {
         const currentUrl = window.location.href;
 
@@ -75,9 +77,7 @@ function handleVisibilityChange() {
             }
 
             if (warnings <= 0) {
-                decrementAttendance().then(() => {
-                    clearSessionAndRedirect();
-                });
+                await decrementAttendance()
             } else if (warnings === 1) {
                 alert('Final Warning: Your attendance will be removed after this. Do not go to another tab!');
             } else {
@@ -88,21 +88,24 @@ function handleVisibilityChange() {
 }
 
 async function decrementAttendance() {
-    const userId = sessionDetails.userId;
-    const sessionId = sessionDetails.sessionId;
+    const userId = localStorage.getItem("userId")
 
     try {
-        const response = await fetch(`http://localhost:9087/attendance/update/${userId}`, {
+        const response = await fetch(`http://localhost:9087/attendance/increment-decrement/${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ attended: false, sessionId: sessionId }),
+            body: JSON.stringify({ userId: userId, increment: false}),
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        sessionStorage.clear();
+        localStorage.clear() 
+        window.location.href = 'https://matlab.mathworks.com/';
+        window.close();
         console.log('Attendance decremented successfully:', data);
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
@@ -116,17 +119,29 @@ function clearSessionAndRedirect() {
 }
 
 function preventInspectAndReload() {
-    document.onkeydown = function (e) {
-        if (e.key === "F12" || (e.ctrlKey && (e.key === "u" || e.key === "s" || e.key === "Shift"))) {
-            return false; 
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault(); 
+    });
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) {
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
         }
     };
-
+    
     window.onbeforeunload = function () {
         return "Are you sure you want to leave this page?"; 
     };
 
-    document.addEventListener('contextmenu', (e) => {
-        e.preventDefault(); 
-    });
 }

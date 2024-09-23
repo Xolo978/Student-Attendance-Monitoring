@@ -27,7 +27,6 @@ export default async function attendanceRoutes(fastify: FastifyInstance) {
     fastify.post('/attendance/increment-decrement/:userId', async (request, reply) => {
         const { userId } = request.params as { userId: string };
         const { increment } = request.body as { increment: boolean };
-
         try {
             const updatedUser = await incrementOrDecrementAttendance(userId, increment);
             return reply.status(200).send({ user: updatedUser });

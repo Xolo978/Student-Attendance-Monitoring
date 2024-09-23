@@ -1,3 +1,4 @@
+const link = "http://localhost:9087"
 async function loadAttendanceData() {
     const attendanceResponse = await fetch('http://localhost:9087/attendance');
     const attendanceData = await attendanceResponse.json();
@@ -25,11 +26,11 @@ async function updateAttendance(userId, increment) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ increment }), // Pass increment flag
+        body: JSON.stringify({ increment }), 
     });
 
     if (response.ok) {
-        loadAttendanceData(); // Reload data after update
+        loadAttendanceData(); 
     } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);

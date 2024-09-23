@@ -1,3 +1,4 @@
+const link = "http://localhost:9087"
 async function loadCurrentSessions() {
     const response = await fetch('http://localhost:9087/session-settings');
     const sessions = await response.json();

@@ -1,3 +1,4 @@
+const link = "http://localhost:9087"
 async function saveSessionSettings() {
     const sessionDate = document.getElementById('session-date').value;
     const startTime = document.getElementById('start-time').value;

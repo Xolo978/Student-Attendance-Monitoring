@@ -1,10 +1,8 @@
 import Attendance from '../model/Attendance.js';
 import User from '../model/User.js';
 
-// Fetch attendance records from User schema
 export const getAttendanceRecords = async () => {
     try {
-        // Find all users and select relevant fields: userId, attendanceCount, etc.
         const users = await User.find({}, { userId: 1, userName: 1, attendanceCount: 1 }).lean();
         return users; // Return the list of users with their attendance count
     } catch (error) {
@@ -60,8 +58,6 @@ export const incrementOrDecrementAttendance = async (userId: string, increment: 
     if (!user) {
         throw new Error('User not found');
     }
-
-    // Increment or decrement attendance count based on 'increment' flag
     if (increment) {
         user.attendanceCount += 1;
     } else {
