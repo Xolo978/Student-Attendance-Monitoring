@@ -4,7 +4,7 @@ function calculateTimeRemaining(startTime, endTime) {
     const now = new Date();
     const sessionStart = new Date(startTime);
     const sessionEnd = new Date(endTime);
-
+    // console.log({sessionStart,sessionEnd,now})
     if (now >= sessionEnd) {
         return "Session Ended";
     }
@@ -37,8 +37,9 @@ async function fetchSessions() {
         sessionList.innerHTML = ''; // Clear existing session list before appending
 
         sessions.forEach(session => {
-            const startTime = `${session.date}T${session.startTime}:00`; // Format start time
-            const endTime = `${session.date}T${session.endTime}:00`; // Format end time
+            const startTime = `${session.date.split('T')[0]}T${session.startTime}:00`; // Split the date to remove timezone and append time
+            const endTime = `${session.date.split('T')[0]}T${session.endTime}:00`; // Same for endTime
+            
 
             // Calculate time remaining based on start and end times
             const timeRemaining = calculateTimeRemaining(startTime, endTime);
@@ -107,7 +108,7 @@ async function joinSession(sessionId) {
             const date = sessionDetails.date
             // Store session details in sessionStorage
             sessionStorage.setItem("sessionId", JSON.stringify({ sessionId ,  startTime, endTime, date })); // Store the entire session object
-
+            // console.log({startTime,endTime,date})
             window.location.href = `join-session.html`;
         } else {
             alert(attendanceData.message); // Show the message if attendance was already recorded
@@ -122,20 +123,20 @@ fetchSessions();
 document.addEventListener('contextmenu', (e) => {
     e.preventDefault(); 
 });
-document.onkeydown = function(e) {
-    if (e.keyCode == 123) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-};
+// document.onkeydown = function(e) {
+//     if (e.keyCode == 123) {
+//         return false;
+//     }
+//     if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+//         return false;
+//     }
+//     if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+//         return false;
+//     }
+//     if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+//         return false;
+//     }
+//     if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+//         return false;
+//     }
+// };

@@ -18,8 +18,8 @@ async function loadCurrentSessions() {
         sessions.forEach(session => {
             const row = document.createElement('tr');
 
-            const startTime = new Date(`${session.date}T${session.startTime}:00`);
-            const endTime = new Date(`${session.date}T${session.endTime}:00`);
+            const startTime = new Date(`${session.date.split('T')[0]}T${session.startTime}:00`);
+            const endTime = new Date(`${session.date.split('T')[0]}T${session.endTime}:00`);;
 
             let timeRemaining = getTimeRemaining(startTime, endTime);
 
