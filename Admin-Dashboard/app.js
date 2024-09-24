@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const port = 8075; 
-const host = 'localhost'; 
+const host = '0.0.0.0'; 
 const rootDir = path.join(__dirname, 'pages'); 
 const scriptsDir = path.join(__dirname, 'scripts'); 
 const stylesDir = path.join(__dirname, 'styles'); 
