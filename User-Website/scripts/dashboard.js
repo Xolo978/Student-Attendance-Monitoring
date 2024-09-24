@@ -1,5 +1,6 @@
 const sessionList = document.getElementById('session-list');
 
+// Function to calculate the remaining time for the session
 function calculateTimeRemaining(startTime, endTime) {
     const now = new Date();
     const sessionStart = new Date(startTime);
@@ -22,6 +23,7 @@ function calculateTimeRemaining(startTime, endTime) {
     return "Session has started";
 }
 
+// Function to fetch sessions from the backend and display them
 async function fetchSessions() {
     try {
         const response = await fetch('https://student-attendance-monitoring.onrender.com/session-settings');
@@ -47,6 +49,7 @@ async function fetchSessions() {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${session.sessionId}</td>
+                <td>${formatDate(new Date(session.date))}</td> <!-- Properly format the date -->
                 <td>${session.startTime}</td>
                 <td>${session.endTime}</td>
                 <td class="time-remaining">${timeRemaining}</td>
@@ -80,62 +83,19 @@ async function fetchSessions() {
     }
 }
 
-async function joinSession(sessionId) {
-    const userId = sessionStorage.getItem('userId');
-
-    if (!userId) {
-        alert('User is not logged in!');
-        return;
-    }
-
-    try {
-        const attendanceResponse = await fetch(`https://student-attendance-monitoring.onrender.com/attendance/update/${userId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ attended: true, sessionId }), // Pass sessionId in the request
-        });
-
-        const attendanceData = await attendanceResponse.json();
-        if (attendanceResponse.ok) {
-            // Fetch session details after updating attendance
-            const sessionResponse = await fetch(`https://student-attendance-monitoring.onrender.com/session/${sessionId}`);
-            const sessionDetails = await sessionResponse.json();
-            const startTime = sessionDetails.startTime
-            const endTime = sessionDetails.endTime
-            const date = sessionDetails.date
-            // Store session details in sessionStorage
-            sessionStorage.setItem("sessionId", JSON.stringify({ sessionId ,  startTime, endTime, date })); // Store the entire session object
-
-            window.location.href = `join-session.html`;
-        } else {
-            alert(attendanceData.message); // Show the message if attendance was already recorded
-            console.error('Error updating attendance:', attendanceData.message);
-        }
-    } catch (error) {
-        console.error('Error joining session:', error);
-    }
+// Format the date in 'YYYY-MM-DD' format
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
-fetchSessions();
-document.addEventListener('contextmenu', (e) => {
-    e.preventDefault(); 
-});
-document.onkeydown = function(e) {
-    if (e.keyCode == 123) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-};
+// Function to join a session (you can add additional logic as per your needs)
+function joinSession(sessionId) {
+    console.log(`Joining session: ${sessionId}`);
+    // Add your join session logic here
+}
+
+// Load sessions on page load
+window.onload = fetchSessions;
