@@ -1,72 +1,53 @@
 import SessionSettings from '../model/SessionSettings';
-import { toZonedTime, format } from 'date-fns-tz';
-
-const IST_TIME_ZONE = 'Asia/Kolkata';
 
 export const getSessionByIdHelper = async (sessionId: string) => {
     const session = await SessionSettings.findOne({ sessionId });
     if (session) {
         return {
             _id: session._id,
-            date: format(toZonedTime(new Date(session.date), IST_TIME_ZONE), 'yyyy-MM-dd'),
-            startTime: session.startTime,
-            endTime: session.endTime,
+            date: session.date, // No conversion to IST
+            startTime: session.startTime, // Keep as is
+            endTime: session.endTime, // Keep as is
             sessionId: session.sessionId,
         };
     }
     return null; 
 };
 
-
-export const saveSessionSettingsHelper = async (date: Date, startTime: string, endTime: string,sessionId:string) => {
-   
-
+export const saveSessionSettingsHelper = async (date: Date, startTime: string, endTime: string, sessionId: string) => {
+    // Parse startTime and endTime
     const [startHours, startMinutes] = startTime.split(':').map(Number);
     const [endHours, endMinutes] = endTime.split(':').map(Number);
 
+    // Create Date objects for start and end times
     const startDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), startHours, startMinutes);
     const endDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), endHours, endMinutes);
 
-    const istStartTime = toZonedTime(startDateTime, IST_TIME_ZONE);
-    const istEndTime = toZonedTime(endDateTime, IST_TIME_ZONE);
-
-    
+    // Save the session without any timezone conversion
     const newSession = new SessionSettings({
-        date: format(toZonedTime(date, IST_TIME_ZONE), 'yyyy-MM-dd'),
-        startTime: format(istStartTime, 'HH:mm'),
-        endTime: format(istEndTime, 'HH:mm'),
+        date: date.toISOString().split('T')[0], // Format date to 'yyyy-MM-dd' without time zone conversion
+        startTime: startTime, // Keep as is
+        endTime: endTime, // Keep as is
         sessionId: sessionId,
     });
 
-    await newSession.save(); 
+    await newSession.save();
 };
+
 export const getSessionSettingsHelper = async () => {
     const settings = await SessionSettings.find({});
     
     return settings.map(setting => {
-        const startDate = new Date(setting.date);
-        const startHoursMinutes = setting.startTime.split(':').map(Number);
-        const startDateTime = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), startHoursMinutes[0], startHoursMinutes[1]);
-
-        const endDate = new Date(setting.date);
-        const endHoursMinutes = setting.endTime.split(':').map(Number);
-        const endDateTime = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), endHoursMinutes[0], endHoursMinutes[1]);
-
-        const istStartTime = toZonedTime(startDateTime, IST_TIME_ZONE);
-        const istEndTime = toZonedTime(endDateTime, IST_TIME_ZONE);
-
-        const formattedDate = format(toZonedTime(startDate, IST_TIME_ZONE), 'yyyy-MM-dd');
-        
+        // Parse the start and end times as is without converting them to IST
         return {
             _id: setting._id,
-            date: formattedDate,
-            startTime: format(istStartTime, 'HH:mm'),
-            endTime: format(istEndTime, 'HH:mm'),
+            date: setting.date, // Keep as is
+            startTime: setting.startTime, // Keep as is
+            endTime: setting.endTime, // Keep as is
             sessionId: setting.sessionId,
         };
     });
 };
-
 
 export const deleteSessionHelper = async (sessionId: string) => {
     const deletedSession = await SessionSettings.findByIdAndDelete(sessionId);
