@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "dev": "vite --port 6070",
-  "build": "vite build",
-  "serve": "vite preview"
+    "start": "node app.js"
 },
   "keywords": [],
   "author": "",
