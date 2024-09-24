@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const port = 8090; // Fixed port for local development
-const host = '0.0.0.0'; // Bind to localhost for local dev
+const host = 'localhost'; // Bind to localhost for local dev
 const rootDir = path.join(__dirname, 'pages'); // Directory for HTML files
 const scriptsDir = path.join(__dirname, 'scripts'); // Directory for JS files
 const stylesDir = path.join(__dirname, 'styles'); // Directory for CSS files

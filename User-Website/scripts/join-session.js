@@ -5,20 +5,20 @@ let isSessionOver = false;
 // Parse the sessionId as JSON
 const sessionDetails = JSON.parse(sessionId);
 console.log(sessionDetails)
-// if (!sessionDetails) {
-//     alert('Session details not found. Please try again.');
-//     window.location.href = 'dashboard.html'; 
-// }
+if (!sessionDetails) {
+    alert('Session details not found. Please try again.');
+    window.location.href = 'dashboard.html'; 
+}
 
 
 const sessionStartTime = new Date(`${sessionDetails.date.split('T')[0]}T${sessionDetails.startTime}:00`); // Split the date to remove timezone and append time
 const sessionEndTime = new Date(`${sessionDetails.date.split('T')[0]}T${sessionDetails.endTime}:00`); // Same for endTime
 console.log(sessionStartTime,sessionEndTime)
-// if (isNaN(sessionStartTime) || isNaN(sessionEndTime)) {
-//     console.error('Invalid start or end time:', sessionStartTime, sessionEndTime);
-//     alert('Session time is invalid. Please check the session details.');
-//     window.location.href = 'dashboard.html'; 
-// }
+if (isNaN(sessionStartTime) || isNaN(sessionEndTime)) {
+    console.error('Invalid start or end time:', sessionStartTime, sessionEndTime);
+    alert('Session time is invalid. Please check the session details.');
+    window.location.href = 'dashboard.html'; 
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     enterFullScreen();

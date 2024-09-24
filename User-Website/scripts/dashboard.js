@@ -109,7 +109,9 @@ async function joinSession(sessionId) {
             // Store session details in sessionStorage
             sessionStorage.setItem("sessionId", JSON.stringify({ sessionId ,  startTime, endTime, date })); // Store the entire session object
             // console.log({startTime,endTime,date})
-            window.location.href = `join-session.html`;
+            window.open('https://www.mathworks.com', '_blank');
+            sessionStorage.clear()
+            localStorage.clear()
         } else {
             alert(attendanceData.message); // Show the message if attendance was already recorded
             console.error('Error updating attendance:', attendanceData.message);
