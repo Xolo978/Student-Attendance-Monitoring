@@ -24,7 +24,7 @@ function calculateTimeRemaining(startTime, endTime) {
 
 async function fetchSessions() {
     try {
-        const response = await fetch('http://localhost:9087/session-settings');
+        const response = await fetch('https://student-attendance-monitoring.onrender.com/session-settings');
         const sessions = await response.json();
 
         // Sort sessions by start time (most recent first)
@@ -89,7 +89,7 @@ async function joinSession(sessionId) {
     }
 
     try {
-        const attendanceResponse = await fetch(`http://localhost:9087/attendance/update/${userId}`, {
+        const attendanceResponse = await fetch(`https://student-attendance-monitoring.onrender.com/attendance/update/${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ async function joinSession(sessionId) {
         const attendanceData = await attendanceResponse.json();
         if (attendanceResponse.ok) {
             // Fetch session details after updating attendance
-            const sessionResponse = await fetch(`http://localhost:9087/session/${sessionId}`);
+            const sessionResponse = await fetch(`https://student-attendance-monitoring.onrender.com/session/${sessionId}`);
             const sessionDetails = await sessionResponse.json();
             const startTime = sessionDetails.startTime
             const endTime = sessionDetails.endTime
