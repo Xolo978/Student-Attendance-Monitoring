@@ -17,8 +17,12 @@ const server = http.createServer((req, res) => {
     } else if (req.url.startsWith('/scripts/')) {
         filePath = path.join(__dirname, req.url); // Serve JS from the scripts folder
     } else if (req.url.startsWith('/styles/')) {
-        filePath = path.join(__dirname, req.url); // Serve CSS from the styles folder
-    } else {
+        filePath = path.join(__dirname, req.url);
+         // Serve CSS from the styles folder
+    }
+    else if (req.url.startsWith('/static/')) {
+        filePath = path.join(__dirname, req.url)}
+    else {
         filePath = path.join(rootDir, req.url); // Serve other HTML pages from the pages folder
     }
 
