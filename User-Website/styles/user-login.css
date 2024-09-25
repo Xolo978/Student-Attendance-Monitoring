@@ -8,7 +8,7 @@
     z-index: -1; /* Ensure it's behind all other elements */
     opacity: 0.1; /* Watermark transparency */
     pointer-events: none; /* Prevent interaction with the watermark */
-    background-image: url('bigyan lab.png'); /* Add the watermark image */
+    background-image: url('../static/bigyan_lab.png'); /* Add the watermark image */
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain; /* Ensure the watermark fits nicely */
