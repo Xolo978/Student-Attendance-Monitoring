@@ -21,7 +21,11 @@ const server = http.createServer((req, res) => {
         filePath = path.join(__dirname, req.url); // Serve CSS from the styles folder
     } else if (req.url.startsWith('/config/')) {
         filePath = path.join(__dirname, req.url); // Serve JSON config
-    } else {
+    }
+    else if (req.url.startsWith('/static/')) {
+        filePath = path.join(__dirname, req.url); // Serve JSON config
+    }
+     else {
         filePath = path.join(rootDir, req.url); // Serve other HTML pages from the pages folder
     }
 
