@@ -12,6 +12,7 @@ const userWebsocket_js_1 = __importDefault(require("./websocket/userWebsocket.js
 const userRoutes_js_1 = __importDefault(require("./route/userRoutes.js"));
 const cors_1 = __importDefault(require("@fastify/cors"));
 const config_json_1 = __importDefault(require("./config/config.json"));
+const dummyRoutes_js_1 = __importDefault(require("./route/dummyRoutes.js"));
 const app = (0, fastify_1.default)();
 const mongodbUri = config_json_1.default.mongoDbURI;
 const port = config_json_1.default.port;
@@ -28,6 +29,7 @@ const startServer = async () => {
     await app.register(adminRoutes_js_1.default);
     await app.register(sessionRoutes_js_1.default);
     await app.register(userRoutes_js_1.default);
+    await app.register(dummyRoutes_js_1.default);
     await app.register(userWebsocket_js_1.default);
     app.listen({ port: port, host: '0.0.0.0' }, (err, address) => {
         if (err) {

@@ -29,6 +29,7 @@ const userSchema = new mongoose_1.Schema({
     username: { type: String, required: false, unique: false },
     userId: { type: String, required: true, unique: true }, // Add userId
     password: { type: String, required: true },
+    email: { type: String, required: false }, // Add email field
     attendanceCount: { type: Number, default: 0 }, // Total attendance count
     violations: [Violation_js_1.violationSchema],
 });
